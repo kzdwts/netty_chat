@@ -36,14 +36,13 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
     protected void channelRead0(ChannelHandlerContext ctx, TextWebSocketFrame msg) throws Exception {
         // 当接收到数据后，会自动调用
 
-        // 获取客户端发送过来的额文本消息
+        // 获取客户端发送过来的文本消息
         String text = msg.text();
         System.out.println("接收到的消息数据为：" + text);
 
         for (Channel client : clients) {
             // 将消息发送到所有的客户端
             client.writeAndFlush(new TextWebSocketFrame(sdf.format(new Date()) + ":" + text));
-
         }
 
     }
